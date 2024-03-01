@@ -1,12 +1,9 @@
-import Header from "../components/shared/Header";
-import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  const { auth, setAuth } = useAuth();
-  console.log(auth);
   return (
     <div>
-      <Header />
+      <Link to="/me">Go to profile</Link>
     </div>
   );
 }
