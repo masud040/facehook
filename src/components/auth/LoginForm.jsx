@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -8,12 +9,30 @@ export default function LoginForm() {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
   } = useForm();
+
   const navigate = useNavigate();
-  function submitForm(formData) {
-    const user = { ...formData };
-    setAuth({ user });
-    navigate("/");
+  async function submitForm(formData) {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_SERVER_URL}/auth/login`,
+        formData
+      );
+
+      if (response.status === 200) {
+        const { token, user } = response.data;
+        const authToken = token.token;
+        const refreshToken = token.refreshToken;
+        setAuth({ user, authToken, refreshToken });
+        navigate("/");
+      }
+    } catch (error) {
+      setError("root.random", {
+        type: "random",
+        message: `This User ${formData.email} is not found.`,
+      });
+    }
   }
 
   return (
@@ -47,6 +66,11 @@ export default function LoginForm() {
           id="password"
         />
       </Field>
+      {errors.root?.random?.message && (
+        <p className="block pb-2 text-sm text-center text-red-500">
+          {errors?.root?.random?.message}
+        </p>
+      )}
       <Field>
         <button
           className="font-bold transition-all auth-input bg-lwsGreen text-deepDark hover:opacity-90"
