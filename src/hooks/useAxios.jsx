@@ -5,8 +5,6 @@ import useAuth from "./useAuth";
 
 export default function useAxios() {
   const { auth, setAuth } = useAuth();
-  console.log(auth);
-
   useEffect(() => {
     // Add a request interceptor
     const requestIntercept = api.interceptors.request.use(
@@ -24,7 +22,7 @@ export default function useAxios() {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-        console.log(originalRequest);
+
         if (error.response.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
