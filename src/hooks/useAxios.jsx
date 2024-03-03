@@ -5,6 +5,8 @@ import useAuth from "./useAuth";
 
 export default function useAxios() {
   const { auth, setAuth } = useAuth();
+  console.log(auth);
+
   useEffect(() => {
     // Add a request interceptor
     const requestIntercept = api.interceptors.request.use(
@@ -13,7 +15,6 @@ export default function useAxios() {
         if (authToken) {
           config.headers.Authorization = `Bearer ${authToken}`;
         }
-
         return config;
       },
       (error) => Promise.reject(error)
@@ -23,20 +24,23 @@ export default function useAxios() {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
+        console.log(originalRequest);
         if (error.response.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           const refreshToken = auth?.refreshToken;
+
           const response = await axios.post(
             `${import.meta.env.VITE_BASE_SERVER_URL}/auth/refresh-token`,
             { refreshToken }
           );
           const { token } = response.data;
+          setAuth({ ...auth, authToken: token });
           console.log(`New Token: ${token}`);
-          setAuth({ ...auth, authToken: { token } });
           originalRequest.headers.Authorization = `Bearer ${token}`;
           return axios(originalRequest);
         }
+
         return Promise.reject(error);
       }
     );

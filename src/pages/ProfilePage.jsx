@@ -9,7 +9,7 @@ export default function ProfilePage() {
   const [error, setError] = useState(null);
   const { auth } = useAuth();
   const { api } = useAxios();
-  console.log(user, posts);
+  console.log(user);
   useEffect(() => {
     setLoading(true);
     async function getUserProfile() {
@@ -26,6 +26,8 @@ export default function ProfilePage() {
     }
     getUserProfile();
   }, []);
-
+  if (loading) {
+    <h1>Fetching your profile data...</h1>;
+  }
   return <div>Profile</div>;
 }
