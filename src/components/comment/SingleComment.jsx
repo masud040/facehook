@@ -1,5 +1,4 @@
 const SingleComment = ({ comment }) => {
-  console.log(comment);
   return (
     <div className="flex items-center gap-3 pt-4">
       <img

@@ -1,9 +1,6 @@
-import useProfile from "../../hooks/useProfile";
 import PostCard from "./PostCard";
 
-const PostList = () => {
-  const { state } = useProfile();
-  const posts = state?.posts;
+const PostList = ({ posts }) => {
   return (
     <>
       {!!posts &&

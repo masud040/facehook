@@ -6,7 +6,7 @@ const PostComment = ({ postInfo }) => {
   const [showAll, setShowAll] = useState(false);
   return (
     <div>
-      <AddComment />
+      <AddComment postInfo={postInfo} />
       <div className="mt-4">
         <button
           onClick={() => setShowAll((s) => !s)}

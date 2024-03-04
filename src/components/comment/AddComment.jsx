@@ -1,12 +1,13 @@
-import useProfile from "../../hooks/useProfile";
+import useAvatar from "../../hooks/useAvatar";
 
-const AddComment = () => {
-  const { state } = useProfile();
+const AddComment = ({ postInfo }) => {
+  const { avatarUrl } = useAvatar(postInfo);
+
   return (
     <div className="gap-2 mb-3 flex-center lg:gap-4">
       <img
         className="max-w-7 max-h-7 rounded-full lg:max-h-[34px] lg:max-w-[34px]"
-        src={`${import.meta.env.VITE_BASE_SERVER_URL}/${state?.user?.avatar}`}
+        src={avatarUrl}
         alt="avatar"
       />
 
