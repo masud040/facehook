@@ -9,7 +9,7 @@ const PostCard = ({ postInfo }) => {
       <PostHeader postInfo={postInfo} />
       <PostBody imageUrl={postInfo.image} content={postInfo?.content} />
       <PostAction
-        postId={postInfo.id}
+        postInfo={postInfo}
         commentCount={postInfo?.comments?.length}
       />
       <PostComment postInfo={postInfo} />

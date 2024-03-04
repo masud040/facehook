@@ -1,3 +1,4 @@
+import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Home from "../../assets/icons/home.svg";
 import Notification from "../../assets/icons/notification.svg";
@@ -32,11 +33,15 @@ export default function Header() {
             <span className="text-lg font-medium lg:text-xl">
               {user.firstName} {user.lastName}
             </span>
-            <img
-              className="max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px] rounded-full"
-              src={`${import.meta.env.VITE_BASE_SERVER_URL}/${user.avatar}`}
-              alt="avatar"
-            />
+            {user?.avater ? (
+              <img
+                className="max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px] rounded-full"
+                src={`${import.meta.env.VITE_BASE_SERVER_URL}/${user.avatar}`}
+                alt="avatar"
+              />
+            ) : (
+              <FaUserCircle className="text-2xl" />
+            )}
           </Link>
         </div>
       </div>
