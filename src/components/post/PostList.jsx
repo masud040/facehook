@@ -6,9 +6,8 @@ const PostList = () => {
   const posts = state?.posts;
   return (
     <>
-      {posts.map((post) => (
-        <PostCard key={post.id} postInfo={post} />
-      ))}
+      {!!posts &&
+        posts.map((post) => <PostCard key={post.id} postInfo={post} />)}
     </>
   );
 };
