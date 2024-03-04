@@ -7,7 +7,7 @@ export default function PrivateRoute() {
   const { auth } = useAuth();
   return (
     <>
-      {auth.user ? (
+      {auth.authToken ? (
         <ProfileProvider>
           <Header />
           <main className="mx-auto max-w-[1020px] py-8">

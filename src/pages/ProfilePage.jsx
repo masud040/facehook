@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { actions } from "../actions";
+import ProfileInfo from "../components/profile/ProfileInfo";
 import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import useProfile from "../hooks/useProfile";
 
 export default function ProfilePage() {
   const { state, dispatch } = useProfile();
-  console.log(state);
   const { auth } = useAuth();
   const { api } = useAxios();
 
@@ -24,7 +24,10 @@ export default function ProfilePage() {
           });
         }
       } catch (error) {
-        dispatch({ type: actions.profile.DATA_FETCH_ERROR });
+        dispatch({
+          type: actions.profile.DATA_FETCH_ERROR,
+          error: error.message,
+        });
       }
     }
     getUserProfile();
@@ -32,5 +35,9 @@ export default function ProfilePage() {
   if (state.loading) {
     <h1>Fetching your profile data...</h1>;
   }
-  return <div>Profile</div>;
+  return (
+    <>
+      <ProfileInfo />
+    </>
+  );
 }
