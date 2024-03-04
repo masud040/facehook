@@ -1,4 +1,4 @@
-export const formatTime = (formatTime) => {
+export const formatDate = (formatTime) => {
   let difference = new Date() - new Date(formatTime);
   difference = difference / 60000;
   let dayDiff = Math.floor(difference / 1440);
@@ -9,10 +9,14 @@ export const formatTime = (formatTime) => {
   difference -= minuteDiff * 1;
   let message;
   if (dayDiff > 0) {
-    message = `${dayDiff} days`;
+    message = `${dayDiff} d`;
   }
   if (hourDiff > 0) {
-    message = message ? `${message} ${hourDiff} hours` : `${hourDiff} hours`;
+    message = message ? `${message} ${hourDiff} h` : `${hourDiff} h`;
   }
-  console.log(message);
+  if (minuteDiff > 0) {
+    message = message ? `${message} ${minuteDiff} min` : `${minuteDiff} min`;
+  }
+
+  return message;
 };
