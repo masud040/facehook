@@ -1,6 +1,6 @@
 import PostAction from "./PostAction";
 import PostBody from "./PostBody";
-import PostComment from "./PostComment";
+import PostComments from "./PostComments";
 import PostHeader from "./PostHeader";
 
 const PostCard = ({ postInfo }) => {
@@ -12,7 +12,7 @@ const PostCard = ({ postInfo }) => {
         postInfo={postInfo}
         commentCount={postInfo?.comments?.length}
       />
-      <PostComment postInfo={postInfo} />
+      <PostComments postInfo={postInfo} />
     </article>
   );
 };

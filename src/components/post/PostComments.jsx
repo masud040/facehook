@@ -2,11 +2,14 @@ import { useState } from "react";
 import AddComment from "../comment/AddComment";
 import CommentList from "../comment/CommentList";
 
-const PostComment = ({ postInfo }) => {
+const PostComments = ({ postInfo }) => {
   const [showAll, setShowAll] = useState(false);
+  const [comments, setComments] = useState(postInfo?.comments);
+
   return (
     <div>
-      <AddComment postInfo={postInfo} />
+      <AddComment postInfo={postInfo} setComments={setComments} />
+
       <div className="mt-4">
         <button
           onClick={() => setShowAll((s) => !s)}
@@ -15,9 +18,9 @@ const PostComment = ({ postInfo }) => {
           All Comment▾
         </button>
       </div>
-      {!!showAll && <CommentList comments={postInfo?.comments} />}
+      {!!showAll && <CommentList comments={comments} />}
     </div>
   );
 };
 
-export default PostComment;
+export default PostComments;
