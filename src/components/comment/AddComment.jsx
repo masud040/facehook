@@ -1,9 +1,9 @@
 import { useState } from "react";
-import useAvatar from "../../hooks/useAvatar";
+import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 
 const AddComment = ({ postInfo, setComments }) => {
-  const { avatarUrl } = useAvatar(postInfo);
+  const { auth } = useAuth();
   const [comment, setComment] = useState("");
   const { api } = useAxios();
   const handleAddComment = async () => {
@@ -14,7 +14,7 @@ const AddComment = ({ postInfo, setComments }) => {
           comment,
         });
         if (response?.status === 200) {
-          setComments(response?.data?.comments);
+          setComments([...response.data.comments]);
           setComment("");
         }
       }
@@ -26,7 +26,7 @@ const AddComment = ({ postInfo, setComments }) => {
     <div className="gap-2 mb-3 flex-center lg:gap-4">
       <img
         className="max-w-7 max-h-7 rounded-full lg:max-h-[34px] lg:max-w-[34px]"
-        src={avatarUrl}
+        src={`${import.meta.env.VITE_BASE_SERVER_URL}/${auth?.user?.avatar}`}
         alt="avatar"
       />
 
