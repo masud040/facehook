@@ -27,10 +27,10 @@ export default function LoginPage() {
             <LoginForm />
             <div className="py-4 lg:py-6">
               <p className="text-xs text-center text-gray-600/95 lg:text-sm">
-                Don’t have account?
+                Don’t have account?{" "}
                 <Link
                   className="text-white transition-all hover:text-lwsGreen hover:underline"
-                  to="/registration.html"
+                  to="/register"
                 >
                   Create New
                 </Link>

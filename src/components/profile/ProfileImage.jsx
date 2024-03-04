@@ -17,7 +17,7 @@ const ProfileImage = () => {
         `/profile/${state.user.id}/avatar`,
         formData
       );
-      console.log(response);
+
       if (response.status === 200) {
         dispatch({ type: actions.profile.IMAGE_UPDATED, data: response.data });
       }
