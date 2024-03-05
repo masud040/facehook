@@ -3,11 +3,15 @@ import ThreeDotIcon from "../../assets/icons/3dots.svg";
 import DeleteIcon from "../../assets/icons/delete.svg";
 import EditIcon from "../../assets/icons/edit.svg";
 import TimeIcon from "../../assets/icons/time.svg";
+import useAuth from "../../hooks/useAuth";
 import useAvatar from "../../hooks/useAvatar";
 import { formatDate } from "../../utils";
 const PostHeader = ({ postInfo }) => {
   const [showAction, setShowAction] = useState(false);
   const { avatarUrl } = useAvatar(postInfo);
+  const { auth } = useAuth();
+
+  const isMePost = auth?.user?.id === postInfo?.author?.id;
 
   return (
     <header className="flex items-center justify-between gap-4">
@@ -29,9 +33,11 @@ const PostHeader = ({ postInfo }) => {
       </div>
 
       <div className="relative">
-        <button onClick={() => setShowAction((s) => !s)}>
-          <img src={ThreeDotIcon} alt="3dots of Action" />
-        </button>
+        {isMePost && (
+          <button onClick={() => setShowAction((s) => !s)}>
+            <img src={ThreeDotIcon} alt="3dots of Action" />
+          </button>
+        )}
 
         {!!showAction && (
           <div className="transition delay-800 action-modal-container">

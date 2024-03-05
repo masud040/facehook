@@ -18,10 +18,16 @@ const PostEntry = ({ onClose }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleAddPost = async (formData) => {
+  const handleAddPost = async (data) => {
     try {
+      const formData = new FormData();
+      formData.append("content", data.content);
+      for (const file of data.photo) {
+        formData.append("image", file);
+      }
+
       dispatch({ type: actions.post.DATA_FETCHING });
-      const response = await api.post("/posts", { formData });
+      const response = await api.post("/posts", formData);
 
       if (response.status === 200) {
         dispatch({ type: actions.post.POST_CREATED, data: response.data });
@@ -65,7 +71,13 @@ const PostEntry = ({ onClose }) => {
               <img src={AddPhotoIcon} alt="Add Photo" />
               Add Photo
             </label>
-            <input type="file" name="photo" id="photo" className="hidden" />
+            <input
+              {...register("photo")}
+              type="file"
+              name="photo"
+              id="photo"
+              className="hidden"
+            />
           </div>
           <form onSubmit={handleSubmit(handleAddPost)}>
             <Field label="" error={errors.content}>
