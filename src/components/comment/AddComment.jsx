@@ -1,10 +1,13 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import useProfile from "../../hooks/useProfile";
 
 const AddComment = ({ postInfo, setComments }) => {
   const { auth } = useAuth();
   const [comment, setComment] = useState("");
+  const { state: Profile } = useProfile();
+  const user = Profile?.user ?? auth?.user;
   const { api } = useAxios();
   const handleAddComment = async () => {
     try {
@@ -26,7 +29,7 @@ const AddComment = ({ postInfo, setComments }) => {
     <div className="gap-2 mb-3 flex-center lg:gap-4">
       <img
         className="max-w-7 max-h-7 rounded-full lg:max-h-[34px] lg:max-w-[34px]"
-        src={`${import.meta.env.VITE_BASE_SERVER_URL}/${auth?.user?.avatar}`}
+        src={`${import.meta.env.VITE_BASE_SERVER_URL}/${user?.avatar}`}
         alt="avatar"
       />
 
